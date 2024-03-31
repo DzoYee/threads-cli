@@ -8,10 +8,10 @@ import (
 	"threads/pkg/models"
 )
 
-// SendTitle sends the title to the API
-func SendTitle(title string) error {
-	apiURL := "http://yourapi.com/endpoint" // Change to your API's URL
-	requestPayload := models.TitleRequest{Title: title}
+// SendIdea sends the title to the API
+func SendTitle(name string) error {
+	apiURL := "http://localhost:8080/ideas" // Change to your API's URL
+	requestPayload := models.IdeaRequest{Name: name}
 	payloadBytes, err := json.Marshal(requestPayload)
 	if err != nil {
 		return err
@@ -23,8 +23,9 @@ func SendTitle(title string) error {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("received non-ok response code: %d", resp.StatusCode)
+	// Check if the status code is within the range of success codes (200-299)
+	if resp.StatusCode < 200 || resp.StatusCode > 299 {
+		return fmt.Errorf("received non-success response code: %d", resp.StatusCode)
 	}
 	return nil
 }

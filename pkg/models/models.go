@@ -1,6 +1,6 @@
 package models
 
-// TitleRequest represents the request payload for sending a title
-type TitleRequest struct {
-	Title string `json:"title"`
+// IdeaRequest represents the request payload for sending a title
+type IdeaRequest struct {
+	Name string `json:"name"`
 }
